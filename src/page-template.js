@@ -1,3 +1,4 @@
+
 module.exports = (name, github) => {
     return `
     <!DOCTYPE html> 
@@ -15,4 +16,9 @@ module.exports = (name, github) => {
     </body>
     </html>
     `;
+
   };
+  module.exports = generatePage;
+
+  };
+
