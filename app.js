@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 console.log(inquirer);
+const fs = require('fs');
+const generatePage = require('./src/page-template');
 
 const promptUser = () => {
   return inquirer.prompt([
@@ -123,21 +125,26 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
-  })
-.then(projectData => {
-  portfolioData.projects.push(projectData);
-  if (projectData.confirmAddProject) {
-    return promptProject(portfolioData);
-  } else {
-    return portfolioData;
-  }
-});
+    const pageHTML = generatePage(portfolioData);
+
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+      console.log('Page created! Check out index.html in this directory to see it!');
+    });
+  });
+// .then(projectData => {
+//   portfolioData.projects.push(projectData);
+//   if (projectData.confirmAddProject) {
+//     return promptProject(portfolioData);
+//   } else {
+//     return portfolioData;
+//   }
+// });
 
 
 
-// const fs = require('fs');
-// const generatePage = require('./src/page-template');
+
 
 // const pageHTML = generatePage(name, github);
 
